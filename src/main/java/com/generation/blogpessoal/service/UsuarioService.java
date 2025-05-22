@@ -39,11 +39,14 @@ public class UsuarioService {
 	
 	public Optional<Usuario> atualizarUsuario(Usuario usuario){
 		
-		if(usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent()) {
+		if(usuarioRepository.findById(usuario.getId()).isPresent()) {
 			
-			usuario.setSenha(criptografarSenha(usuario.getSenha()));
-			
-			return Optional.ofNullable(usuarioRepository.save(usuario));
+			Long usuarioPresenteId = usuarioRepository.findByUsuario(usuario.getUsuario()).get().getId();
+			if(usuarioPresenteId == usuario.getId()) {
+				usuario.setSenha(criptografarSenha(usuario.getSenha()));
+				
+				return Optional.ofNullable(usuarioRepository.save(usuario));
+			}
 			
 		}
 		
