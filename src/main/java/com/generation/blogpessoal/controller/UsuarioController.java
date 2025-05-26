@@ -34,6 +34,18 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@GetMapping("/listar")
+	public ResponseEntity<List<Usuario>> listarTodos() {
+
+		return ResponseEntity.ok(usuarioService.listarTodos());
+	}
+	
+	@GetMapping("listar/{id}")
+	public ResponseEntity<Usuario> getById(@PathVariable Long id) {
+		return usuarioService.listarPorId(id)
+				.map(resposta -> ResponseEntity.ok(resposta))
+				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	}
 	
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> post(@Valid @RequestBody Usuario usuario){

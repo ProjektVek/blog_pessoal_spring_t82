@@ -1,5 +1,6 @@
 package com.generation.blogpessoal.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,14 @@ public class UsuarioService {
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	
+	public List<Usuario> listarTodos() {
+		return usuarioRepository.findAll();
+	}
+	
+	public Optional<Usuario> listarPorId(Long id) {
+		return usuarioRepository.findById(id);
+	}
 	
 	public Optional<Usuario> cadastrarUsuario(Usuario usuario){
 		
