@@ -17,43 +17,39 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "tb_temas") // CREATE TABLE tb_tema();
+@Table(name = "tb_temas") 
 public class Tema {
 
-	@Id // Primary key
+	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(length = 100)
-	@NotBlank(message = "O atributo descrição é obrigatório")
-	@Size(min = 5, max = 100, message = "O atributo deve ter no minimo 5 e no máximo 100 caracteres")
+	@Column(length = 1000)
+	@NotBlank(message = "O texto é obrigatório")
+	@Size(min = 5, max = 100, message = "O atributo descricao deve ter no minimo 10 e no máximo 1000 caracteres")
 	private String descricao;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "tema", cascade = CascadeType.REMOVE)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tema", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("tema")
-	private List<Postagem> postagem; 
+	private List<Postagem> postagem;
 	
 	public List<Postagem> getPostagem() {
 		return postagem;
 	}
-
 	public void setPostagem(List<Postagem> postagem) {
 		this.postagem = postagem;
 	}
-
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	public String getDescricao() {
 		return descricao;
 	}
-
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
 }
