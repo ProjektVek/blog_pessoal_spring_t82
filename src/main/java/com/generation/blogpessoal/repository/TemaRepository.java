@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.generation.blogpessoal.model.Tema;
+import com.generation.blogpessoal.model.Categoria;
 
-public interface TemaRepository extends JpaRepository<Tema, Long> {
+public interface TemaRepository extends JpaRepository<Categoria, Long> {
 	
 	/* SELECT * FROM tb_temas WHERE descricao LIKE "%?%"; */
-	List<Tema> findAllByDescricaoContainingIgnoreCase(String descricao);
+	List<Categoria> findAllByDescricaoContainingIgnoreCase(String descricao);
 	
 }

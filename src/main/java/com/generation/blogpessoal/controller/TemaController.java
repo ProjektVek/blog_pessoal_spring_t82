@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.generation.blogpessoal.model.Tema;
+import com.generation.blogpessoal.model.Categoria;
 import com.generation.blogpessoal.repository.TemaRepository;
 
 import jakarta.validation.Valid;
@@ -32,13 +32,13 @@ public class TemaController {
 	private TemaRepository temaRepository;
 	
 	@GetMapping
-	public ResponseEntity<List<Tema>> getAll() {
+	public ResponseEntity<List<Categoria>> getAll() {
 		// SELECT * FROM tb_temas
 		return ResponseEntity.ok(temaRepository.findAll());
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Tema> getById(@PathVariable Long id) {
+	public ResponseEntity<Categoria> getById(@PathVariable Long id) {
 		
 		return temaRepository.findById(id)
 				.map(resposta -> ResponseEntity.ok(resposta))
@@ -46,17 +46,17 @@ public class TemaController {
 	}
 	
 	@GetMapping("/descricao/{descricao}")
-	public ResponseEntity<List<Tema>> getAllByDescricao(@PathVariable String descricao){
+	public ResponseEntity<List<Categoria>> getAllByDescricao(@PathVariable String descricao){
 		return ResponseEntity.ok(temaRepository.findAllByDescricaoContainingIgnoreCase(descricao));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Tema> post(@Valid @RequestBody Tema tema){
+	public ResponseEntity<Categoria> post(@Valid @RequestBody Categoria tema){
 		return ResponseEntity.status(HttpStatus.CREATED).body(temaRepository.save(tema));
 	}
 	
 	@PutMapping
-	public ResponseEntity<Tema> put(@Valid @RequestBody Tema tema){
+	public ResponseEntity<Categoria> put(@Valid @RequestBody Categoria tema){
 		
 		if(tema.getId() == null)
 			return ResponseEntity.badRequest().build();
@@ -72,7 +72,7 @@ public class TemaController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
 		
-		Optional<Tema> tema = temaRepository.findById(id);
+		Optional<Categoria> tema = temaRepository.findById(id);
 		
 		if(tema.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
